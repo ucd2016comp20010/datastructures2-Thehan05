@@ -174,9 +174,8 @@ public class SinglyLinkedList<E> implements List<E> {
     @Override
     public E removeFirst() {
         if(head == null) {
-            throw new IllegalArgumentException();
+            return null;
         }
-
         E removed = head.getElement();
         head = head.getNext();    
         size--;
