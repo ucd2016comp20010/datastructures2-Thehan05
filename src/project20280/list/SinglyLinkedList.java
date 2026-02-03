@@ -22,7 +22,8 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n reference to a node that should follow the new node
          */
         public Node(E e, Node<E> n) {
-            // TODO
+            this.element = e;
+            this.next = n; 
         }
 
         // Accessor methods
@@ -33,7 +34,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return null;
+            return element;
         }
 
         /**
@@ -42,8 +43,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the following node
          */
         public Node<E> getNext() {
-            // TODO
-            return null;
+            return next;
         }
 
         // Modifier methods
@@ -54,7 +54,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n the node that should follow this one
          */
         public void setNext(Node<E> n) {
-            // TODO
+            next = n;
         }
     } //----------- end of nested Node class -----------
 
@@ -70,61 +70,148 @@ public class SinglyLinkedList<E> implements List<E> {
     private int size = 0;                      // number of nodes in the list
 
     public SinglyLinkedList() {
+        
     }              // constructs an initially empty list
 
-    //@Override
+    @Override
     public int size() {
-        // TODO
-        return 0;
+        return size;
     }
 
-    //@Override
+    @Override
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return this.head == null;
     }
 
     @Override
     public E get(int position) {
-        // TODO
-        return null;
+        if (position < 0 || position >= size) {
+            throw new IllegalArgumentException();
+        }
+
+        Node<E> current = head;
+        for (int i = 0; i < position; i++) {
+            current = current.getNext();
+        }
+
+        return current.getElement();
     }
 
     @Override
     public void add(int position, E e) {
         // TODO
+        if(position < 0 || position > size){
+            throw new IllegalArgumentException();
+        }
+
+        if(position == 0) {
+            head = new Node<>(e, head);
+        } else {
+            Node<E> current = head;
+            for(int i = 0; i < position - 1; i++){
+                current = current.getNext();
+            }
+            Node<E> newNode = new Node<>(e, current.getNext());
+            current.setNext(newNode);
+        }
+
+        size++;
     }
 
 
     @Override
     public void addFirst(E e) {
-        // TODO
+        head = new Node<>(e, head);
+        size++;
     }
 
     @Override
     public void addLast(E e) {
-        // TODO
+        
+
+        if(head == null) {
+            head = new Node<>(e, null);
+        } else {
+            Node<E> current = head;
+
+            while(current.getNext() != null) {
+                current = current.getNext();
+            }
+            
+            current.setNext(new Node<>(e, null));
+        }
+        
+        size++;
     }
 
-    @Override
+        @Override
     public E remove(int position) {
-        // TODO
-        return null;
+        if (position < 0 || position >= size) {
+            throw new IllegalArgumentException();
+        }
+
+        E removed;
+
+        if (position == 0) {
+            removed = head.getElement();
+            head = head.getNext();
+        } else {
+            Node<E> prev = head;
+            for (int i = 0; i < position - 1; i++) {
+                prev = prev.getNext();
+            }
+
+            Node<E> current = prev.getNext();
+            removed = current.getElement();
+            prev.setNext(current.getNext());
+        }
+
+        size--;
+        return removed;
     }
+
 
     @Override
     public E removeFirst() {
-        // TODO
-        return null;
+        if(head == null) {
+            throw new IllegalArgumentException();
+        }
+
+        E removed = head.getElement();
+        head = head.getNext();    
+        size--;
+
+        return removed;
     }
 
     @Override
     public E removeLast() {
-        // TODO
-        return null;
+        if(head == null) {
+            throw new IllegalArgumentException();
+        }
+        if (head.getNext() == null) {
+            E removed = head.getElement();
+            head = null;
+            size--;
+            return removed;
+        }
+
+        Node<E> current = head.getNext();
+        Node<E> prev = head;
+
+        while(current.getNext() != null){
+            prev = current;
+            current = current.getNext();
+        }
+
+        E removed = current.getElement();
+        prev.setNext(null);
+        size--;
+        
+        return removed;
     }
 
-    //@Override
+    @Override
     public Iterator<E> iterator() {
         return new SinglyLinkedListIterator<E>();
     }
@@ -145,6 +232,7 @@ public class SinglyLinkedList<E> implements List<E> {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
         Node<E> curr = head;
