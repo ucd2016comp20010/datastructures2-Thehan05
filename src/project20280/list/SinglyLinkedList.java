@@ -210,6 +210,30 @@ public class SinglyLinkedList<E> implements List<E> {
         return removed;
     }
 
+    public void reverse() {
+        Node<E> current = head;
+        Node<E> prev = null;
+
+        while (current != null) {
+            Node<E> next = current.getNext();
+            current.setNext(prev);
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+
+    public SinglyLinkedList<E> copy() {
+        SinglyLinkedList<E> twin = new SinglyLinkedList<E>();
+        Node<E> tmp = head;
+        while (tmp != null) {
+            twin.addLast(tmp.getElement());
+            tmp = tmp.next;
+        }
+        return twin;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new SinglyLinkedListIterator<E>();
@@ -243,6 +267,36 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    public static <E extends Comparable <E>>
+    SinglyLinkedList<E> sortedMerge(SinglyLinkedList<E> l1, SinglyLinkedList<E> l2) {
+
+        SinglyLinkedList<E> result = new SinglyLinkedList<E>();
+        Node<E> p1 = l1.head;
+        Node<E> p2 = l2.head;
+
+        while (p1 != null && p2 != null) {
+            if (p1.getElement().compareTo(p2.getElement()) <= 0) {
+                result.addLast(p1.getElement());
+                p1 = p1.getNext();
+            } else {
+                result.addLast(p2.getElement());
+                p2 = p2.getNext();
+            }
+        }
+
+        while (p1 != null) {
+            result.addLast(p1.getElement());
+            p1 = p1.getNext();
+        }
+
+        while (p2 != null) {
+            result.addLast(p2.getElement());
+            p2 = p2.getNext();
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {

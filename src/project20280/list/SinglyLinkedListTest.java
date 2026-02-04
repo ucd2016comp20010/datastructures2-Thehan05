@@ -119,4 +119,54 @@ class SinglyLinkedListTest {
         assertEquals("[1, 2, 3]", ll.toString());
     }
 
+    @Test
+    void testSortedMerge() {
+        SinglyLinkedList<Integer> l1 = new SinglyLinkedList<>();
+        l1.addLast(2);
+        l1.addLast(6);
+        l1.addLast(20);
+        l1.addLast(24);
+
+        SinglyLinkedList<Integer> l2 = new SinglyLinkedList<>();
+        l2.addLast(1);
+        l2.addLast(3);
+        l2.addLast(5);
+        l2.addLast(8);
+        l2.addLast(12);
+        l2.addLast(19);
+        l2.addLast(25);
+
+        SinglyLinkedList<Integer> result =
+                SinglyLinkedList.sortedMerge(l1, l2);
+
+        assertEquals("[1, 2, 3, 5, 6, 8, 12, 19, 20, 24, 25]",
+                result.toString());
+    }
+
+    @Test
+    void testReverseList() {
+        SinglyLinkedList<Integer> ll = new SinglyLinkedList<>();
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(3);
+
+        ll.reverse();
+
+        assertEquals("[3, 2, 1]", ll.toString());
+    }
+
+    @Test
+    void testCopyNormalList() {
+        SinglyLinkedList<Integer> original = new SinglyLinkedList<>();
+        original.addLast(1);
+        original.addLast(2);
+        original.addLast(3);
+
+        SinglyLinkedList<Integer> copy = original.copy();
+
+        assertEquals("[1, 2, 3]", copy.toString());
+        assertEquals("[1, 2, 3]", original.toString());
+    }
+
+
 }
