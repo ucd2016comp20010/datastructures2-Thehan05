@@ -15,3 +15,31 @@ A circularly linked list is useful when several tasks need to take turns. After 
 
 * Playlists or turn-based games:
 A circularly linked list is helpful when items repeat in order, like songs in a playlist or players taking turns in a game. When you reach the end, it loops back to the start without stopping.
+
+PSEUDOCODE
+
+     PROCEDURE enqueue(x)
+    PUSH x onto Stack1
+
+     dequeue():
+          if outStack is empty:
+               if inStack is empty:
+                    return Queue is empty
+               
+               while inStack is NOT empty:
+                    outStack.push(inStack.pop())
+
+               return outStack.pop()
+
+Q3 - Stack A
+Stack B
+Stack C
+
+     while C is not empty:
+        A.push(C.pop())
+
+    while A is not empty:
+        B.push(A.pop())
+
+    while B is not empty:
+        C.push(B.pop())
