@@ -55,9 +55,15 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     // accessor methods (not already implemented in AbstractBinaryTree)
 
     public static void main(String [] args) {
-        LinkedBinaryTree<String> bt = new LinkedBinaryTree<>();
-        String[] arr = { "A", "B", "C", "D", "E", null, "F", null, null, "G", "H", null, null, null, null };
-        bt.createLevelOrder(arr);
+        LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<>();
+        //String[] arr = { "A", "B", "C", "D", "E", null, "F", null, null, "G", "H", null, null, null, null };
+        Integer [] inorder = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
+        Integer [] preorder = {18, 2, 1, 14, 13, 12, 4, 3, 9, 6, 5, 8, 7, 10, 11, 15, 16, 17, 28, 23, 19, 22, 20, 21, 24, 27, 26, 25, 29, 30};
+        //bt.createLevelOrder(arr);
+        bt.construct(
+                new ArrayList<>(java.util.Arrays.asList(inorder)),
+                new ArrayList<>(java.util.Arrays.asList(preorder))
+        );
         System.out.println(bt.toBinaryTreeString());
     }
 
@@ -381,6 +387,28 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         }
         return p;
     }
+
+
+    public void construct(ArrayList<E> i, ArrayList<E> p) {
+        size = 0;
+        root = buildTree(i, p, 0,i.size() - 1, new int[]{0}, null);
+    }
+
+    private Node<E> buildTree (ArrayList<E> inorder, ArrayList<E> preorder, int inStart, int end, int[] index, Node<E> parent) {
+        if (inStart > end) {
+            return null;
+        }
+        E root = preorder.get(index[0]++);
+        Node<E> node = createNode(root, parent, null, null);
+        size++;
+
+        int splitIndex = inorder.indexOf(root);
+        node.setLeft(buildTree(inorder, preorder, inStart,  splitIndex - 1, index, node));
+        node.setRight(buildTree(inorder, preorder, splitIndex + 1, end, index, node));
+
+        return node;
+    }
+
 
     public String toBinaryTreeString() {
         BinaryTreePrinter<E> btp = new BinaryTreePrinter<>(this);
