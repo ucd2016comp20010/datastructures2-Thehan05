@@ -43,3 +43,53 @@ Stack C
 
     while B is not empty:
         C.push(B.pop())
+
+
+RECURSION
+
+Q1
+
+A={12, 5, 19, 6, 11, 3, 9, 34, 2, 1, 15};
+
+ReverseArray(0,10)
+swaps(12,15) = A={15, 5, 19, 6, 11, 3, 9, 34, 2, 1, 12};
+
+ReverseArray(1,9)
+    swaps(5,1) = A={15, 1, 19, 6, 11, 3, 9, 34, 2, 5, 12};
+
+ReverseArray(2,8)
+    swaps(19,2) = A={15, 1, 2, 6, 11, 3, 9, 34, 19, 5, 12};
+
+ReverseArray(3,7)
+    swaps(6,34) = A={15, 1, 2, 34, 11, 3, 9, 6, 19, 5, 12};
+
+ReverseArray(4,6)
+    swaps(11,9) = A={15, 1, 2, 34, 9, 3, 11, 6, 19, 5, 12};
+
+ReverseArray(5,5)
+    swaps(3,3) = A={15, 1, 2, 34, 9, 3, 11, 6, 19, 5, 12};
+
+
+
+question 6
+
+function printReverse(node)
+
+    if node == null
+        return
+
+    printReverse(node.next)
+    print node.data
+
+end function
+
+function copyList(node)
+
+    if node == null
+        return null
+
+    newNode = new Node(node.data)
+
+    newNode.next = copyList(node.next)
+
+    return newNode

@@ -224,6 +224,23 @@ public class SinglyLinkedList<E> implements List<E> {
         head = prev;
     }
 
+    public SinglyLinkedList<E> recursiveCopy() {
+        SinglyLinkedList<E> copy = new SinglyLinkedList<>();
+        copy.head = copy(this.head);
+        copy.size = this.size;   // preserve size
+        return copy;
+    }
+
+    private Node<E> copy(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+
+        Node<E> newNode = new Node<>(node.getElement(), null);
+        newNode.setNext(copy(node.getNext()));
+        return newNode;
+    }
+
     public SinglyLinkedList<E> copy() {
         SinglyLinkedList<E> twin = new SinglyLinkedList<E>();
         Node<E> tmp = head;
