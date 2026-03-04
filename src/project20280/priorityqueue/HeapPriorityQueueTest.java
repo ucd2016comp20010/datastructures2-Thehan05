@@ -2,6 +2,9 @@ package project20280.priorityqueue;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HeapPriorityQueueTest {
@@ -60,5 +63,30 @@ class HeapPriorityQueueTest {
 
         assertEquals("[1, 2, 5, 23, 4, 12, 15, 35, 24, 33, 21, 26]", pq.toString());
     }
+
+    @Test
+    void testPQSort() {
+        int[] arr      = {35, 26, 15, 24, 33, 4, 12, 1, 23, 21, 2, 5};
+        int[] expected = {1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35};
+        assertArrayEquals(expected, HeapPriorityQueue.pqSort(arr));
+    }
+
+    @Test
+    void testPQSortTiming() {
+        int[] sizes = {1_000, 10_000, 100_000, 1_000_000};
+
+        for (int n : sizes) {
+            int[] arr = new int[n];
+            Random rng = new Random(42);
+            for (int i = 0; i < n; i++) arr[i] = rng.nextInt(1_000_000);
+
+            long start = System.nanoTime();
+            HeapPriorityQueue.pqSort(arr);
+            long ms = (System.nanoTime() - start) / 1_000_000;
+
+            System.out.println("n=" + n + " -> " + ms + "ms");
+        }
+    }
+
 
 }
