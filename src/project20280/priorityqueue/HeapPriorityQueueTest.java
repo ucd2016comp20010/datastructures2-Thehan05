@@ -88,5 +88,14 @@ class HeapPriorityQueueTest {
         }
     }
 
+    @Test
+    void testHeapSort() {
+        int[] arr = {4, 10, 3, 5, 1};
+
+        HeapPriorityQueue.heapSort(arr);
+
+        int[] expected = {1, 3, 4, 5, 10};
+        assertArrayEquals(expected, arr);
+    }
 
 }
