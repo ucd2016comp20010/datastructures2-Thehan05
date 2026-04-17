@@ -64,6 +64,9 @@ public class ArrayStack<E> implements Stack<E> {
      */
     @Override
     public void push(E e) {
+        if (size() == data.length) {
+            throw new IllegalStateException("Stack is full");
+        }
         data[++t] = e;
     }
 
@@ -74,7 +77,11 @@ public class ArrayStack<E> implements Stack<E> {
      */
     @Override
     public E top() {
-        return data[t];
+        if (isEmpty()) {
+            return null;
+        } else {
+            return data[t];
+        }
     }
 
     /**
