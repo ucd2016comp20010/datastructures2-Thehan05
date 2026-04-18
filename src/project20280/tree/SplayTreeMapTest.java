@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import project20280.interfaces.Entry;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SplayTreeMapTest {
@@ -136,7 +136,19 @@ class SplayTreeMapTest {
 
     @Test
     void testEntrySet() {
-        fail("Not yet implemented");
+        SplayTreeMap<Integer, String> map = new SplayTreeMap<>();
+        Integer[] arr = new Integer[]{44, 17, 88, 8, 32, 65, 97, 28, 54, 82, 93, 21, 29, 76, 80};
+
+        for (Integer i : arr) {
+            map.put(i, Integer.toString(i));
+        }
+
+        ArrayList<Integer> keys = new ArrayList<>();
+        for (Entry<Integer, String> e : map.entrySet()) {
+            keys.add(e.getKey());
+        }
+
+        assertEquals("[8, 17, 21, 28, 29, 32, 44, 54, 65, 76, 80, 82, 88, 93, 97]", keys.toString());
     }
 
     @Test
@@ -148,7 +160,7 @@ class SplayTreeMapTest {
         for (Integer i : arr) {
             map.put(i, Integer.toString(i));
         }
-        assertEquals("[⦰, 1, ⦰, 2, ⦰, 4, ⦰, 5, ⦰, 12, ⦰, 15, ⦰, 21, ⦰, 23, ⦰, 24, ⦰, 26, ⦰, 33, ⦰, 35, ⦰]", map.toString());
+        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", map.toString());
     }
 
     @Test

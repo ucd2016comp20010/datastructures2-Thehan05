@@ -110,4 +110,12 @@ class LinkedBinaryTreeTest {
         assertEquals(3, bt.height());
     }
 
+    @Test
+    void testDiameter() {
+        LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<>();
+        Integer[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        bt.createLevelOrder(arr);
+
+        assertEquals(6, bt.diameter());
+    }
 }

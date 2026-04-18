@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.ArrayList;
+import project20280.interfaces.Entry;
 
 class TreeMapTest {
 
@@ -50,8 +52,11 @@ class TreeMapTest {
         for (Integer i : arr) {
             map.put(i, Integer.toString(i));
         }
-
-        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", map.keySet().toString());
+        ArrayList<Integer> keys = new ArrayList<>();
+        for (Integer k : map.keySet()) {
+            keys.add(k);
+        }
+        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", keys.toString());
     }
 
     @Test
@@ -162,7 +167,7 @@ class TreeMapTest {
         for (Integer i : arr) {
             map.put(i, Integer.toString(i));
         }
-        assertEquals("", map.toString());
+        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", map.toString());
     }
 
     @Test

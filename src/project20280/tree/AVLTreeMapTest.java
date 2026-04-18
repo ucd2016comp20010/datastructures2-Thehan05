@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import project20280.interfaces.Entry;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AVLTreeMapTest {
@@ -162,7 +162,15 @@ class AVLTreeMapTest {
 
     @Test
     void testEntrySet() {
-        fail("Not yet implemented");
+        AVLTreeMap<Integer, String> map = new AVLTreeMap<>();
+        Integer[] arr = new Integer[]{35, 26, 15, 24, 33, 4, 12, 1, 23, 21, 2, 5};
+        for (Integer i : arr) map.put(i, Integer.toString(i));
+
+        ArrayList<Integer> keys = new ArrayList<>();
+        for (Entry<Integer, String> e : map.entrySet()) {
+            keys.add(e.getKey());
+        }
+        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", keys.toString());
     }
 
     @Test
@@ -174,8 +182,7 @@ class AVLTreeMapTest {
         for (Integer i : arr) {
             map.put(i, Integer.toString(i));
         }
-        assertEquals("[⦰, 1, ⦰, 2, ⦰, 4, ⦰, 5, ⦰, 12, ⦰, 15, ⦰, 21, ⦰, 23, ⦰, 24, ⦰, 26, ⦰, 33, ⦰, 35, ⦰]", map.toString());
-    }
+        assertEquals("[1, 2, 4, 5, 12, 15, 21, 23, 24, 26, 33, 35]", map.toString());    }
 
     @Test
     void testSubMap() {

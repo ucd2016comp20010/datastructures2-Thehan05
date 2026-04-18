@@ -31,31 +31,38 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      * Returns the height of the given tree position.
      */
     protected int height(Position<Entry<K, V>> p) {
-        // TODO
-        return 0;
+        if (p == null || isExternal(p)) return 0;
+        return tree.getAux(p);
     }
 
     /**
      * Recomputes the height of the given position based on its children's heights.
      */
     protected void recomputeHeight(Position<Entry<K, V>> p) {
-        // TODO
+       int h = 1 + Math.max(height(left(p)), height(right(p)));
+       tree.setAux(p, h);
     }
 
     /**
      * Returns whether a position has balance factor between -1 and 1 inclusive.
      */
     protected boolean isBalanced(Position<Entry<K, V>> p) {
-        // TODO
-        return false;
+        return Math.abs(height(left(p)) - height(right(p))) <= 1;
     }
 
     /**
      * Returns a child of p with height no smaller than that of the other child.
      */
     protected Position<Entry<K, V>> tallerChild(Position<Entry<K, V>> p) {
-        // TODO
-        return null;
+        if (height(left(p)) > height(right(p)))  return left(p);
+        if (height(right(p)) > height(left(p)))  return right(p);
+
+        if(isRoot(p)) return left(p);
+        if(p == left(parent(p))) {
+            return left(p);
+        } else {
+            return right(p);
+        }
     }
 
     /**
@@ -64,7 +71,15 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      * imbalance is found, continuing until balance is restored.
      */
     protected void rebalance(Position<Entry<K, V>> p) {
-        // TODO
+        while (p != null) {
+            if (!isBalanced(p)) {
+                p = restructure(tallerChild(tallerChild(p)));
+                recomputeHeight(left(p));
+                recomputeHeight(right(p));
+            }
+            recomputeHeight(p);
+            p = parent(p);
+        }
     }
 
     /**
@@ -80,7 +95,7 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      */
     @Override
     protected void rebalanceDelete(Position<Entry<K, V>> p) {
-        // TODO
+        rebalance(p);
     }
 
     /**

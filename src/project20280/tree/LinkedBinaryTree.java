@@ -285,7 +285,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
         size += t1.size() + t2.size();
 
-        if(!t1.isEmpty() && t2.isEmpty()) {
+        if(!t1.isEmpty()) {
             t1.root.setParent(node);
             node.setLeft((t1.root));
             t1.root = null;
@@ -353,7 +353,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         size = 0;
         for (E e : l) {
             if (e != null) size++;
-        }root = createLevelOrderHelper(l, null, 0);
+        }
+        root = createLevelOrderHelper(l, null, 0);
 
     }
 
@@ -378,14 +379,14 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     }
 
     private Node<E> createLevelOrderHelper(E[] arr, Node<E> p, int i) {
-        if (i < arr.length) {
-            Node<E> n = createNode(arr[i], p, null, null);
-            n.left = createLevelOrderHelper(arr, n.left, 2 * i + 1);
-            n.right = createLevelOrderHelper(arr, n.right, 2 * i + 2);
-            ++size;
-            return n;
-        }
-        return p;
+        if(i >= arr.length) return null;
+        if(arr[i] == null) return null;
+
+        Node<E> n = createNode(arr[i], p, null, null);
+        n.left = createLevelOrderHelper(arr, n.left, 2 * i + 1);
+        n.right = createLevelOrderHelper(arr, n.right, 2 * i + 2);
+        ++size;
+        return n;
     }
 
 
@@ -413,6 +414,23 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     public String toBinaryTreeString() {
         BinaryTreePrinter<E> btp = new BinaryTreePrinter<>(this);
         return btp.print();
+    }
+
+    public int diameter() {
+        if(root == null) return 0;
+        int [] result = new int[]{0};
+        diamaterHelper(root, result);
+        return result[0];
+    }
+
+    private int diamaterHelper(Node<E> n, int[] result) {
+        if(n == null) return -1;
+        int left = diamaterHelper(n.getLeft(), result);
+        int right = diamaterHelper(n.getRight(), result);
+        int pathThroughHere = left + right + 2;
+        if (pathThroughHere > result[0]) result[0] = pathThroughHere;
+
+        return 1 + Math.max(left, right);
     }
 
     /**
@@ -472,5 +490,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
             }
             return sb.toString();
         }
+
+
     }
 }
