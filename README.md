@@ -48,7 +48,7 @@ Stack C
         C.push(B.pop())
 
 
-### WK4 - Trees
+### WK4 - Trees I
 
 **Write a recursive function (pseudo-code) to count the number of external nodes in a binary tree.**
 
@@ -121,9 +121,21 @@ a node in a binary tree.**
     right ← 1 + countDescendants(right(p))
     return left + right
 
+### WK5 - Trees II
+Describe a method (using pseudocode) to find the diameter of a binary tree.
 
+    diameter(root):
+    result ← 0
+    diameterHelper(root, result)
+    return result
 
-
+    diameterHelper(node, result):
+    if node is null: return -1
+    left  ← diameterHelper(node.left,  result)
+    right ← diameterHelper(node.right, result)
+    path  ← left + right + 2
+    if path > result: result ← path
+    return 1 + max(left, right)
 
 
 

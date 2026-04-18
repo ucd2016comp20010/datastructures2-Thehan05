@@ -1,5 +1,5 @@
 package project20280.tree;
-
+import java.util.List;
 import project20280.interfaces.Position;
 
 import java.util.ArrayList;
@@ -432,6 +432,32 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
         return 1 + Math.max(left, right);
     }
+
+    public List<List<E>> rootToLeafPaths() {
+        List<List<E>> paths = new ArrayList<>();
+        if (root == null) return paths;
+        rootToLeafHelper(root, new ArrayList<>(), paths);
+        return paths;
+    }
+
+    private void rootToLeafHelper(Node<E> node, List<E> current, List<List<E>> paths) {
+        if (node == null) return;
+
+        current.add(node.getElement());
+
+        if (node.getLeft() == null && node.getRight() == null) {
+            // leaf node — save a copy of current path
+            paths.add(new ArrayList<>(current));
+        } else {
+            rootToLeafHelper(node.getLeft(),  current, paths);
+            rootToLeafHelper(node.getRight(), current, paths);
+        }
+
+        // backtrack
+        current.remove(current.size() - 1);
+    }
+
+
 
     /**
      * Nested static class for a binary tree node.
