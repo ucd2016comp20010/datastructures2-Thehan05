@@ -29,8 +29,12 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
      * Returns the index of an entry with equal key, or -1 if none found.
      */
     private int findIndex(K key) {
-        // TODO
-        return 0;
+        for(int i = 0; i < table.size(); i++) {
+            if(table.get(i).getKey().equals(key)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // public methods
@@ -54,8 +58,12 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
      */
     @Override
     public V get(K key) {
-        // TODO
-        return null;
+        int j = findIndex(key);
+        if(j != -1) {
+            return table.get(j).getValue();
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -70,8 +78,15 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
      */
     @Override
     public V put(K key, V value) {
-        // TODO
-        return null;
+        int j = findIndex(key);
+        if(j != -1) {
+            V oldValue = table.get(j).getValue();
+            table.get(j).setValue(value);
+            return oldValue;
+        } else {
+            table.add(new MapEntry<>(key, value));
+            return null;
+        }
     }
 
     /**
@@ -84,8 +99,14 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
      */
     @Override
     public V remove(K key) {
-        // TODO
-        return null;
+        int j = findIndex(key);
+        if(j != -1) {
+            V oldValue = table.get(j).getValue();
+            table.remove(j);
+            return oldValue;
+        } else {
+            return null;
+        }
     }
 
     // ---------------- nested EntryIterator class ----------------

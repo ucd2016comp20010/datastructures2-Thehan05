@@ -9,16 +9,16 @@
 **In what situations would you prefer to use a linked list to an array?**
 * You would prefer to use a linked list instead of an array when the size of the collection needs to change often and when elements are frequently inserted or removed. Also, when you do not need fast access by index.
 
-**Describe 2 possible use-cases for a circularly linked list** 
+**Describe two possible use-cases for a circularly linked list** 
 * Round-robin scheduling:
 A circularly linked list is useful when several tasks need to take turns. After the last task is done, the list goes back to the first task automatically, so the cycle can continue smoothly.
 * Playlists or turn-based games:
 A circularly linked list is helpful when items repeat in order, like songs in a playlist or players taking turns in a game. When you reach the end, it loops back to the start without stopping.
 
-### WK3 - Stacks, Queues, Deques
+### WK3 - Stacks, Queues, Deque
 
 
-**Write  the pseudocode for an algorithm which implements a Queue using two stacks.
+**Write the pseudocode for an algorithm which implements a Queue using two stacks.
 Provide implementations for the enqueue() and dequeue() methods.**
 
     PROCEDURE enqueue(x)
@@ -50,7 +50,7 @@ Stack C
 
 ### WK4 - Trees I
 
-**Write a recursive function (pseudo-code) to count the number of external nodes in a binary tree.**
+**Write a recursive function (pseudocode) to count the number of external nodes in a binary tree.**
 
     countExternal(p):
     if isExternal(p):
@@ -75,7 +75,7 @@ nodes in a binary tree.**
     Nodes Marked * are left external nodes.
 
 **Consider a binary tree, where each node holds a single character. The nodes, in no
-particular order are ['A', 'E', 'F', 'M', 'N', 'U', 'X'].**
+particular order, are ['A', 'E', 'F', 'M', 'N', 'U', 'X'].**
 
 **Draw a representation of this binary tree such that a preorder traversal of the tree gives
 the result: "EXAMFUN"**
@@ -103,7 +103,7 @@ the result: "EXAMFUN".**
       / \ / \
      E  X F  N
 
-**Draw a representation of this binary tree such that an postorder traversal of the tree
+**Draw a representation of this binary tree such that a postorder traversal of the tree
 gives the result: "EXAMFUN".**
 
            M
@@ -148,33 +148,8 @@ average of their height. Plot the average height as a function n**
 The plot confirms O(log n) average height scaling for random binary trees.
 
 
-RECURSION
-
-Q1
-
-A={12, 5, 19, 6, 11, 3, 9, 34, 2, 1, 15};
-
-ReverseArray(0,10)
-swaps(12,15) = A={15, 5, 19, 6, 11, 3, 9, 34, 2, 1, 12};
-
-ReverseArray(1,9)
-    swaps(5,1) = A={15, 1, 19, 6, 11, 3, 9, 34, 2, 5, 12};
-
-ReverseArray(2,8)
-    swaps(19,2) = A={15, 1, 2, 6, 11, 3, 9, 34, 19, 5, 12};
-
-ReverseArray(3,7)
-    swaps(6,34) = A={15, 1, 2, 34, 11, 3, 9, 6, 19, 5, 12};
-
-ReverseArray(4,6)
-    swaps(11,9) = A={15, 1, 2, 34, 9, 3, 11, 6, 19, 5, 12};
-
-ReverseArray(5,5)
-    swaps(3,3) = A={15, 1, 2, 34, 9, 3, 11, 6, 19, 5, 12};
-
-
 ### WK6 - Recursion
-**Write the psuedocode for a recursive function which prints the elements of a linked
+**Write the pseudocode for a recursive function which prints the elements of a linked
 list in reverse?**
 
     if node == null
@@ -184,7 +159,7 @@ list in reverse?**
     print node.element
 
 
-**Write the pseudo-code for a fully recursive function which copies a linked list?**
+**Write the pseudocode for a fully recursive function which copies a linked list?**
   
     if node == null
         return null
@@ -235,8 +210,55 @@ Can you construct a valid heap where a post-order traversal of the keys does not
 them ascending order?**
 
 
-Yes,  A heap only guarantees that each parent node is larger than its children (in a min-heap). It does not guarantee ordering between subtrees. Therefore a pre-order traversal does not necessarily list keys in descending order.
+Yes, A heap only guarantees that each parent node is larger than its children (in a min-heap). It does not guarantee ordering between subtrees. Therefore, a pre-order traversal does not necessarily list keys in descending order.
    
     Preorder : [100, 50, 20, 40, 80, 60, 70]
     Postorder : [20, 40, 50, 60, 70, 80, 100]
 
+### WK 8 - HashMaps
+
+**Draw the 11-entry hash table that results from using the hash function,
+h(i) = (3i + 5) mod 11 (1)
+to hash the keys 12, 44, 13, 88, 23, 94, 11, 39, 20, 16, and 5, assuming collisions are
+handled by separate chaining.**
+
+    Slot     Chain
+
+      0      [13]
+      1      [94] → [39]
+      2      null
+      3      null
+      4      null
+      5      [44] → [88] → [11]
+      6      null
+      7      null
+      8      [12] → [23]
+      9      [16] → [5]
+     10      [20]
+
+**Draw the 19-entry hash table that results from using the default MAD hash function
+in AbstractHashMap to hash the keys 12, 44, 13, 88, 23, 94, 11, 39, 20, 16, and 5,
+assuming collisions are handled by separate chaining.**
+
+
+    Slot      Chain
+   
+      0       [44]
+      1       [5]
+      2       [12]
+      3       [88] → [39] → [16]
+      4       [23]
+      5       null
+      6       [11]
+      7       null
+      8       [94]
+      9       null
+     10       [13]
+     11       [20]
+     12       null
+     13       null
+     14       null
+     15       null
+     16       null
+     17       null
+     18       null
