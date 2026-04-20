@@ -200,3 +200,43 @@ to be?**
 
 Expected complexity: O(n) inorder visits every node exactly once,
 so execution time should grow linearly with n.
+
+### WK 7 - Priority Queues
+
+**Illustrate the execution of the heap.insert() method on the following input:
+[2, 5, 16, 4, 10, 23, 39, 18, 26, 15]
+For this question, draw the valid heap after each call to heap.insert().**
+
+    Insert 2:  [2]
+    Insert 5:  [2, 5]
+    Insert 16: [2, 5, 16]
+    Insert 4:  [2, 5, 16, 4] → 4 < 5, swap → [2, 4, 16, 5]
+    Insert 10: [2, 4, 16, 5, 10] → 10 > 4, no swap
+    Insert 23: [2, 4, 16, 5, 10, 23] → 23 > 16, no swap
+    Insert 39: [2, 4, 16, 5, 10, 23, 39] → 39 > 16, no swap
+    Insert 18: [2, 4, 16, 5, 10, 23, 39, 18] → 18 > 5, no swap
+    Insert 26: [2, 4, 16, 5, 10, 23, 39, 18, 26] → 26 > 5, no swap
+    Insert 15: [2, 4, 16, 5, 10, 23, 39, 18, 26, 15] → 15 > 10, no swap
+
+**List the nodes in the preorder traversal of the heap constructed from this array:
+PreOrder [2, 5, 16, 4, 10, 23, 39, 18, 26, 15]**
+    
+    2, 4, 5, 18, 26, 10, 15, 16, 23, 39
+
+**List the nodes in postorder traversal of the heap constructed from this array:
+PostOrder [2, 5, 16, 4, 10, 23, 39, 18, 26, 15]**
+
+    5, 4, 18, 10, 15, 26, 16, 2, 23, 39
+
+
+**Can you construct a valid heap where a pre-order traversal of the keys does not list them
+descending order?
+Can you construct a valid heap where a post-order traversal of the keys does not list
+them ascending order?**
+
+
+Yes,  A heap only guarantees that each parent node is larger than its children (in a min-heap). It does not guarantee ordering between subtrees. Therefore a pre-order traversal does not necessarily list keys in descending order.
+   
+    Preorder : [100, 50, 20, 40, 80, 60, 70]
+    Postorder : [20, 40, 50, 60, 70, 80, 100]
+
