@@ -122,7 +122,7 @@ a node in a binary tree.**
     return left + right
 
 ### WK5 - Trees II
-Describe a method (using pseudocode) to find the diameter of a binary tree.
+**Describe a method (using pseudocode) to find the diameter of a binary tree.**
 
     diameter(root):
     result ← 0
@@ -139,11 +139,13 @@ Describe a method (using pseudocode) to find the diameter of a binary tree.
 
 
 
+**Write a function which creates random binary trees for size n = [50, 5000] in steps of 50.
+For each size n, generate 100 different random binary trees of size n and compute the
+average of their height. Plot the average height as a function n**
 
+![img.png](BSTheight.png)
 
-
-
-
+The plot confirms O(log n) average height scaling for random binary trees.
 
 
 RECURSION
@@ -171,26 +173,30 @@ ReverseArray(5,5)
     swaps(3,3) = A={15, 1, 2, 34, 9, 3, 11, 6, 19, 5, 12};
 
 
-
-question 6
-
-function printReverse(node)
+### WK6 - Recursion
+**Write the psuedocode for a recursive function which prints the elements of a linked
+list in reverse?**
 
     if node == null
         return
 
     printReverse(node.next)
-    print node.data
+    print node.element
 
-end function
 
-function copyList(node)
-
+**Write the pseudo-code for a fully recursive function which copies a linked list?**
+  
     if node == null
         return null
 
     newNode = new Node(node.data)
-
     newNode.next = copyList(node.next)
-
     return newNode
+
+**What do you expect the complexity T(n) of the inorder method of the LinkedBinaryTree
+to be?**
+
+![img_1.png](inorder.png)
+
+Expected complexity: O(n) inorder visits every node exactly once,
+so execution time should grow linearly with n.

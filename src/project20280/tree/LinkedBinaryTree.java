@@ -517,6 +517,14 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
             return sb.toString();
         }
 
-
+        public static void main(String[] args) {
+            for (int n = 10; n <= 10000; n += 10) {
+                LinkedBinaryTree<Integer> bt = makeRandom(n);
+                long start = System.nanoTime();
+                bt.inorder();
+                long end = System.nanoTime();
+                System.out.println((end - start));
+            }
+        }
     }
 }
