@@ -262,3 +262,58 @@ assuming collisions are handled by separate chaining.**
      16       null
      17       null
      18       null
+
+### WK 9 - Binary Search Trees
+
+**question 2**
+
+                          4                     
+                   ┌──────┴──────┐              
+                   3             27             
+                 ┌─┴─┐   ┌───────┴───────┐      
+                 ⦰   ⦰   22              40     
+                    ┌────┴────┐      ┌───┴───┐  
+                    14        25     38      47 
+                ┌───┴───┐   ┌─┴─┐  ┌─┴─┐   ┌─┴─┐
+                12      21  ⦰   ⦰  28  ⦰   ⦰   ⦰
+            ┌─┴─┐   ┌─┴─┐      ┌─┴─┐          
+            6   ⦰   18  ⦰      ⦰   32         
+            ┌─┴─┐   ┌─┴─┐          ┌─┴─┐        
+            ⦰   9   ⦰   ⦰          ⦰   ⦰        
+            ┌─┴─┐                             
+            ⦰   ⦰
+
+    [⦰, 3, ⦰, 4, ⦰, 6, ⦰, 9, ⦰, 12, ⦰, 14, ⦰, 18, ⦰, 
+    21, ⦰, 22, ⦰, 25, ⦰, 27, ⦰, 28, ⦰, 32, ⦰, 38, ⦰, 
+    40, ⦰, 47, ⦰]
+The inorder traversal lists all keys in ascending sorted order,
+confirming the BST property — left subtree keys < root < right subtree keys.
+
+
+**question 3** 
+![img_1.png](img_1.png)     
+
+The chart shows how the average tree height changes as the number of nodes n increases.
+
+* With only random insertions, the height grows at about O(log n).
+* After many random insert and remove operations, the height grows closer to O(√n)
+
+In the tested range (n=100 to 5000), both appear roughly logarithmic, but the slower growth becomes noticeable as n increases.
+
+This highlights why self-balancing trees like AVL trees are useful — they guarantee a height of O(log n) no matter how operations are performed.    
+                                
+                                
+
+                    
+
+
+                
+                                    
+
+
+
+
+
+
+
+                                            

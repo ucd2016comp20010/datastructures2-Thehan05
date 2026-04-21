@@ -5,6 +5,7 @@ import project20280.interfaces.Position;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -590,33 +591,99 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
         return btp.print();
     }
 
+//    public static void main(String[] args) {
+//        TreeMap<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
+//
+//        Random rnd = new Random();
+//        int n_max = 50;
+//        int n = 100;
+//        // rnd.ints(1, n_max).limit(n).distinct().boxed().forEach(x -> treeMap.put(x,
+//        // x));
+//
+//        Consumer<Integer> modify = x -> {
+//            if (rnd.nextFloat() > 0.5)
+//                treeMap.put(x, 0);
+//            else
+//                treeMap.remove(x);
+//        };
+//        BinaryTreePrinter<Entry<Integer, Integer>> btp = new BinaryTreePrinter<>(treeMap.tree);
+//        System.out.println(btp.print());
+//
+//        rnd.ints(1, n_max).limit(10000000).boxed().forEach(modify);
+//        System.out.println(btp.print());
+//
+//        AVLTreeMap<Integer, Integer> avl = new AVLTreeMap<Integer, Integer>();
+//        for (Position<Entry<Integer, Integer>> i : treeMap.tree.inorder()) {
+//            if (i.getElement() != null) {
+//                avl.put(i.getElement().getKey(), 0);
+//            }
+//        }
+//        System.out.println(avl.toBinaryTreeString());
+//    }
+
+//    public static void main(String[] args) {
+//        TreeMap <Integer , Integer > bst = new TreeMap <>();
+//        Random rnd = new Random();
+//        int n_max = 50;
+//        int n = 20;
+//        rnd.ints(1, n_max)
+//        .limit(n)
+//        .distinct()
+//        .boxed()
+//        .forEach(x -> bst.put(x, x));
+//
+//
+//        System.out.println(bst.toBinaryTreeString());
+//
+//        System.out.println(bst.tree.inorder());
+//    }
+
     public static void main(String[] args) {
-        TreeMap<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
-
         Random rnd = new Random();
-        int n_max = 50;
-        int n = 100;
-        // rnd.ints(1, n_max).limit(n).distinct().boxed().forEach(x -> treeMap.put(x,
-        // x));
 
-        Consumer<Integer> modify = x -> {
-            if (rnd.nextFloat() > 0.5)
-                treeMap.put(x, 0);
-            else
-                treeMap.remove(x);
-        };
-        BinaryTreePrinter<Entry<Integer, Integer>> btp = new BinaryTreePrinter<>(treeMap.tree);
-        System.out.println(btp.print());
+        System.out.println("n, heightBST, heightAfterOps");
 
-        rnd.ints(1, n_max).limit(10000000).boxed().forEach(modify);
-        System.out.println(btp.print());
+        int[] sizes = {100, 200, 500, 1000, 2000, 5000};
 
-        AVLTreeMap<Integer, Integer> avl = new AVLTreeMap<Integer, Integer>();
-        for (Position<Entry<Integer, Integer>> i : treeMap.tree.inorder()) {
-            if (i.getElement() != null) {
-                avl.put(i.getElement().getKey(), 0);
+        for (int n : sizes) {
+            // build initial tree with n nodes
+            TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+            int n_max = n * 3;  // key range is 3x tree size
+
+            rnd.ints(1, n_max)
+                    .limit(n)
+                    .distinct()
+                    .boxed()
+                    .forEach(x -> treeMap.put(x, x));
+
+            int heightBefore = treeMap.tree.height();
+
+            // perform random put/remove operations
+            int n_trials = 10000;
+            for (int i = 0; i < n_trials; i++) {
+                var keyset = treeMap.keySet();
+                List<Integer> target = new ArrayList<>();
+                keyset.forEach(target::add);
+
+                if (treeMap.size() < n_max && rnd.nextFloat() > 0.5) {
+                    // put a key that doesn't exist yet
+                    while (true) {
+                        Integer x = rnd.nextInt(n_max);
+                        if (!target.contains(x)) {
+                            treeMap.put(x, x);
+                            break;
+                        }
+                    }
+                } else {
+                    // remove a random existing key
+                    if (treeMap.size() == 0) continue;
+                    Integer x = target.get(rnd.nextInt(target.size()));
+                    treeMap.remove(x);
+                }
             }
+
+            int heightAfter = treeMap.tree.height();
+            System.out.println(n + ", " + heightBefore + ", " + heightAfter);
         }
-        System.out.println(avl.toBinaryTreeString());
     }
 }

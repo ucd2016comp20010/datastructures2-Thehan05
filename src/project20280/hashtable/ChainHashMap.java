@@ -2,7 +2,10 @@ package project20280.hashtable;
 
 import project20280.interfaces.Entry;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
  * Map implementation using hash table with separate chaining.
@@ -130,16 +133,47 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
         return entrySet().toString();
     }
 
-    public static void main(String[] args) {
-        ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
-        m.put(1, "One");
-        m.put(10, "Ten");
-        m.put(11, "Eleven");
-        m.put(20, "Twenty");
+//    public static void main(String[] args) {
+//        ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
+//        m.put(1, "One");
+//        m.put(10, "Ten");
+//        m.put(11, "Eleven");
+//        m.put(20, "Twenty");
+//
+//        System.out.println("m: " + m);
+//
+//        m.remove(11);
+//        System.out.println("m: " + m);
+//    }
 
-        System.out.println("m: " + m);
+    public static void main(String [] args) throws FileNotFoundException {
+        File f = new File("src/project20280/hashtable/sample_text.txt");
+        ChainHashMap<String, Integer> counter = new ChainHashMap<>();
+        Scanner scanner = new Scanner(f);
 
-        m.remove(11);
-        System.out.println("m: " + m);
+        while(scanner.hasNext()) {
+            String word = scanner.next().toLowerCase().replaceAll("[^a-zA-Z]", "");
+            if(word.isEmpty()) continue;
+            Integer count = counter.get(word);
+            if(count == null) {
+                counter.put(word, 1);
+            } else {
+                counter.put(word, count + 1);
+            }
+        }
+        scanner.close();
+
+        ArrayList<Entry<String, Integer>> entries = new ArrayList<>();
+        for (Entry<String, Integer> e : counter.entrySet()) {
+            entries.add(e);
+        }
+
+
+        entries.sort((a, b) -> b.getValue() - a.getValue());
+
+        System.out.println("Top 10 words: ");
+        for(int i=0; i < 10; i++) {
+            System.out.println(entries.get(i).getKey() + " " + entries.get(i).getValue());
+        }
     }
 }
