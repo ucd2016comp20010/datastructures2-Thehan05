@@ -291,8 +291,8 @@ confirming the BST property — left subtree keys < root < right subtree keys.
 
 
 **question 3** 
-![img_1.png](img_1.png)     
 
+![img_1.png](img_1.png)
 The chart shows how the average tree height changes as the number of nodes n increases.
 
 * With only random insertions, the height grows at about O(log n).
@@ -302,10 +302,21 @@ In the tested range (n=100 to 5000), both appear roughly logarithmic, but the sl
 
 This highlights why self-balancing trees like AVL trees are useful — they guarantee a height of O(log n) no matter how operations are performed.    
                                 
-                                
 
-                    
+**BST Sort - Performance Results**
 
+| n       | TreeMap (ms) | AVLTreeMap (ms) | java.util.TreeMap (ms) |
+|---------|-------------|-----------------|------------------------|
+| 1000    | 19          | 10              | 2                      |
+| 5000    | 18          | 24              | 3                      |
+| 10000   | 12          | 46              | 7                      |
+| 50000   | 94          | 156             | 32                     |
+| 100000  | 189         | 358             | 57                     |                           
+
+All three implementations show O(n log n) growth as expected.                  
+* java.util.TreeMap is fastest by a large margin as it's been optimised for years.
+* AVLTreeMap is the slowest
+* Plain TreeMap sits in the middle
 
                 
                                     
