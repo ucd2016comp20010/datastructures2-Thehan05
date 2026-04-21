@@ -319,7 +319,54 @@ All three implementations show O(n log n) growth as expected.
 * Plain TreeMap sits in the middle
 
                 
-                                    
+### WK 10 - AVL Trees, SPLAY Trees
+
+**Explain how to use an AVL tree to sort a set of comparable objects in worst case
+O(n log n) time?**
+
+Insert all n elements into an AVL tree each insertion is O(log n)
+guaranteed, so total insertions = O(n log n).
+Then perform an inorder traversal visits all n nodes in sorted
+order in O(n).
+    
+    Total: O(n log n) + O(n) = O(n log n) worst case.
+
+**For a key k that is not found in binary search tree T, show that both the greatest key
+less than k and the least key greater than k lie on the path traced by the search for k.**
+
+When searching for key k in a BST, at each node we go left if
+k < node.key, or right if k > node.key.
+
+- Every time we go RIGHT from a node, that node's key is less
+  than k, it is a candidate for "greatest key < k."
+- Every time we go LEFT from a node, that node's key is greater
+  than k, it is a candidate for "least key > k."
+
+The last node where we went right = greatest key < k.
+The last node where we went left = least key > k.
+
+ Both are visited during the search, so both lie on the search path.
+
+**Show that the nodes that become temporarily unbalanced in an AVL tree during an
+insertion may be non-consecutive on the path from the newly inserted node to the root.**
+
+example:
+
+        5
+       / \
+      3   7
+     / \
+    2   4
+    /
+    1  ← newly inserted
+
+After inserting 1:
+- Node 2: height(left)=1, height(right)=0 → balanced 
+- Node 3: height(left)=2, height(right)=1 → balanced 
+- Node 5: height(left)=3, height(right)=1 → UNBALANCED 
+
+Node 4 (between 3 and 5 on the path) remains balanced throughout.
+So unbalanced nodes can be non-consecutive on the path to root.
 
 
 
@@ -327,4 +374,6 @@ All three implementations show O(n log n) growth as expected.
 
 
 
-                                            
+
+
+
